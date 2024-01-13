@@ -12,26 +12,58 @@ module.exports = class Cart {
         cart = JSON.parse(fileContent);
       }
       //Analyze the cart +? find existing product
-      const existingProductIndex = cart.products.findIndex((prod) => prod.id === id);
-      const existingProduct = cart.products[existingProductIndex]
+      const existingProductIndex = cart.products.findIndex(
+        (prod) => prod.id === id
+      );
+      const existingProduct = cart.products[existingProductIndex];
 
       let updatedProduct;
       // Add new product/ increate the product qty
       if (existingProduct) {
         updatedProduct = { ...existingProduct };
         updatedProduct.qty = updatedProduct.qty + 1;
-        cart.products = [...cart.products]
-        cart.products[existingProductIndex] = updatedProduct
+        cart.products = [...cart.products];
+        cart.products[existingProductIndex] = updatedProduct;
       } else {
         updatedProduct = { id: id, qty: 1 };
-        cart.products = [...cart.products,updatedProduct]
+        cart.products = [...cart.products, updatedProduct];
       }
-      cart.totalPrice = cart.totalPrice + (+productPrice);
-      
-      fs.writeFile(p,JSON.stringify(cart),(err)=>{
-        console.log(err);
-      })
+      cart.totalPrice = cart.totalPrice + +productPrice;
 
+      fs.writeFile(p, JSON.stringify(cart), (err) => {
+        console.log(err);
+      });
     });
+  }
+
+  static deleteProduct(id, productPrice) {
+    fs.readFile(p, 'utf8',(err, fileContent) => {
+      if (err) {
+        return;
+      }
+      const updatedCart = JSON.parse(fileContent)
+      console.log({updatedCart})
+      const product = updatedCart.products.findIndex((prod) => prod.id === id);
+      const productQty = product.qty;
+      updatedCart.product = updatedCart.products.filter(
+        (prod) => prod.id !== id
+      );
+      cart.totalPrice = cart.totalPrice - productPrice * productQty;
+
+      fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
+        console.log(err);
+      });
+    });
+  }
+
+  static getCart(cb){
+    fs.readFile(p,(err,fileContent)=>{
+      const cart = JSON.parse(fileContent);
+      if(err){
+        cb(null)
+      }else{
+        cb(cart)
+      }
+    })
   }
 };
