@@ -19,7 +19,7 @@ module.exports = class Product {
   }
 
   static deleteProduct(id){
-
+    return db.execute('DELETE FROM products where products.id = ? ', [id])
   }
 
   static findById(id) {
