@@ -1,6 +1,6 @@
 const Squelize = require("sequelize");
 const sequelize = new Squelize("node-tables", "root", "root", {
-  dialect: "mysql",
+  dialect:"mysql",
   host: "localHost",
 });
 

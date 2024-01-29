@@ -1,0 +1,35 @@
+main{
+  display: flex;
+  width: 50rem;
+  background-color: rgb(152, 240, 199);
+  margin: 5px auto;
+}
+
+.cart__item-list{
+  list-style: none;
+  width: 100%;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+.cart__item{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart__item button{
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+  margin: auto 5px;
+  border: 1px solid red;
+}
+
+.cart__item button:hover{
+  color: rgb(255, 0, 0);
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  border: 1px solid red;
+}
